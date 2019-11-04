@@ -1,0 +1,71 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container-fluid">
+    <div class="jumbotron">
+        <h1 class="display-4">Mobilidade POA</h1>
+        <p class="lead">Pesquise abaixo para saber o itinerário do seu ônibus ou lotação.</p>
+    </div>
+  <div class="row">
+    <div class="col-6 mt-5">
+      <div class="card bg-primary text-white">
+        <div class="card-header">
+          Linhas de ônibus
+        </div>
+        <div class="card-body">
+            <input type="text" class="form-control" placeholder="Pesquise por Nome ou Código" [(ngModel)]="pesquisaOnibus.nome">
+        </div>
+        <ul class="list-group list-group-flush" style="height: 200px;overflow: auto;">
+          <li class="list-group-item" *ngFor="let linha of linhasOnibus | filterBy: pesquisaOnibus; let i = index">
+            <a href="#" (click)="getItinerarios(linha)">
+                {{linha.codigo}} - {{linha.nome}}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-6 mt-5">
+      <div class="card text-white bg-success">
+        <div class="card-header">
+          Linhas de Lotação
+        </div>
+        <div class="card-body">
+            <input type="text" class="form-control" placeholder="Pesquise por Nome ou Código" [(ngModel)]="pesquisaLotacao.nome">
+        </div>
+        <ul class="list-group list-group-flush" style="height: 200px;overflow: auto;">
+          <li class="list-group-item" *ngFor="let linha of linhasLotacao | filterBy: pesquisaLotacao; let i = index">
+              <a href="#" (click)="getItinerarios(linha)">
+                {{linha.nome}}
+              </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+    <div class="row">
+        <div class="col-12 mt-5 mb-5">
+            <div class="card">
+              <div class="card-header">
+                Itinerário
+              </div>
+              <div class="card-body">
+              <div class="alert alert-primary" *ngIf="itinerarios.length > 0">
+                Linha Selecionada: {{linhaselecionada.nome}}
+              </div>
+              <div class="alert alert-info" *ngIf="itinerarios.length > 0">
+                  Selecione um roteiro abaixo para ver a localização exata no Google Maps
+              </div>
+
+               <div class="alert alert-info" *ngIf="itinerarios.length <=0">Selecione uma linha</div>
+              </div>
+              <ul class="list-group list-group-flush" style="max-height: 200px;overflow: auto;">
+                <li class="list-group-item" *ngFor="let itinerario of itinerarios; let i = index">
+                  <a href="https://www.google.com/maps/?q={{itinerario.lat}},{{itinerario.lng}}" target="_BLANK">
+                    {{itinerario.lat}} / {{itinerario.lng}} 
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+    </div>
+
+  
+</div>
